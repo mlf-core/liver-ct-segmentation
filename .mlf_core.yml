@@ -1,0 +1,19 @@
+domain: mlflow
+language: pytorch
+project_slug: liver-ct-segmentation
+project_slug_no_hyphen: liver_ct_segmentation
+template_version: '2.0.0 # <<MLF-CORE_NO_BUMP>>'
+template_handle: mlflow-pytorch
+github_username: mlf-core
+creator_github_username: zethson
+is_github_repo: true
+is_repo_private: false
+is_github_orga: true
+github_orga: mlf-core
+full_name: Lukas Heumos
+email: lukas.heumos@posteo.net
+project_name: liver-ct-segmentation
+project_short_description: Segmentation of liver computed tomography images with a
+  UNET.
+version: 0.1.0-SNAPSHOT
+license: MIT
