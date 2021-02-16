@@ -10,7 +10,7 @@ liver-ct-segmentation
         :target: https://github.com/mlf-core/liver-ct-segmentation/actions?query=workflow%3A%22Publish+Container+to+Docker+Packages%22
         :alt: Publish Container to Docker Packages
 
-.. image:: https://github.com/mlf-core/liver-ct-segmentation/workflows/mlf-core%20lint/badge.svg
+.. image:: https://github.com/mlf-core/liver-ct-segmentation/workflows/mlf-core%20linting/badge.svg
         :target: https://github.com/mlf-core/liver-ct-segmentation/actions?query=workflow%3A%22mlf-core+lint%22
         :alt: mlf-core lint
 
