@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; liver-ct-segmentation 0.1.0-SNAPSHOT documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom_cookietemple.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model" href="model.html" />
+    <link rel="prev" title="liver-ct-segmentation" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> liver-ct-segmentation
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0-SNAPSHOT
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">liver-ct-segmentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conda">Conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker">Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#training">Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#training-on-the-cpu">Training on the CPU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#training-using-gpus">Training using GPUs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">liver-ct-segmentation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>mlf-core based mlflow projects require either Conda or Docker to be installed.
+The usage of Docker is highly preferred, since it ensures that system-intelligence can fetch all required and accessible hardware.
+This cannot be guaranteed for MacOS let alone Windows environments.</p>
+<div class="section" id="conda">
+<h3>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
+<p>There is no further setup required besides having Conda installed and CUDA configured for GPU support.
+mlflow will create a new environment for every run.</p>
+</div>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>If you use Docker you should not need to build the Docker container manually, since it should be available on Github Packages or another registry.
+However, if you want to build it manually for e.g. development purposes, ensure that the names matches the defined name in the <a href="#id1"><span class="problematic" id="id2">``</span></a>MLproject``file.
+This is sufficient to train on the CPU. If you want to train using the GPU you need to have the <a class="reference external" href="https://github.com/NVIDIA/nvidia-docker">NVIDIA Container Toolkit</a> installed.</p>
+</div>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="training-on-the-cpu">
+<h3>Training on the CPU<a class="headerlink" href="#training-on-the-cpu" title="Permalink to this headline">¶</a></h3>
+<p>Set your desired environment in the MLproject file. Start training using <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">run</span> <span class="pre">.</span></code>.
+No further parameters are required.</p>
+</div>
+<div class="section" id="training-using-gpus">
+<h3>Training using GPUs<a class="headerlink" href="#training-using-gpus" title="Permalink to this headline">¶</a></h3>
+<p>Conda environments will automatically use the GPU if available.
+Docker requires the accessible GPUs to be passed as runtime parameters. To train using all gpus run <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">run</span> <span class="pre">.</span> <span class="pre">-A</span> <span class="pre">t-A</span> <span class="pre">gpus=all</span> <span class="pre">-P</span> <span class="pre">gpus=&lt;&lt;num_of_gpus&gt;&gt;</span> <span class="pre">-P</span> <span class="pre">acc=ddp</span></code>.
+To train only on CPU it is sufficient to call <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">run</span> <span class="pre">.</span> <span class="pre">-A</span> <span class="pre">t</span></code>. To train on a single GPU, you can call <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">run</span> <span class="pre">.</span> <span class="pre">-A</span> <span class="pre">t</span> <span class="pre">-A</span> <span class="pre">gpus=all</span> <span class="pre">-P</span> <span class="pre">gpus=1</span></code> and for multiple GPUs (for example 2)
+<code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">run</span> <span class="pre">.</span> <span class="pre">-A</span> <span class="pre">t</span> <span class="pre">-A</span> <span class="pre">gpus=all</span> <span class="pre">-P</span> <span class="pre">gpus=2</span> <span class="pre">-P</span> <span class="pre">accelerator=ddp</span></code>.
+You can replace <code class="docutils literal notranslate"><span class="pre">all</span></code> with specific GPU ids (e.g. 0) if desired.</p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>gpus                        Number of gpus to train with                             [0:         int]</p></li>
+<li><p>accelerator                 Accelerator connecting to the Lightning Trainer          [‘None’  string]</p></li>
+<li><p>max_epochs:                 Number of epochs to train                                [5:         int]</p></li>
+<li><p>general-seed:               Python, Random, Numpy seed                               [0:         int]</p></li>
+<li><p>pytorch-seed:               Pytorch specific seed                                    [0:         int]</p></li>
+<li><p>training-batch-size:        Batch size for training batches                          [64:        int]</p></li>
+<li><p>test-batch-size:            Batch size for test batches                              [1000:      int]</p></li>
+<li><p>lr:                         Learning rate of the optimizer                           [0.01:    float]</p></li>
+<li><p>log-interval:               Number of batches to train for before logging            [100:       int]</p></li>
+</ul>
+<p>TODO MLF-CORE: Write your usage and parameter documentation here.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="model.html" class="btn btn-neutral float-right" title="Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="readme.html" class="btn btn-neutral float-left" title="liver-ct-segmentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2021, Lukas Heumos
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
