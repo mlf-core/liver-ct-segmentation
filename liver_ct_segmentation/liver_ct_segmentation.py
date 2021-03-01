@@ -3,15 +3,15 @@ from argparse import ArgumentParser
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger
 import mlflow
-from data_loading.data_loader import MNISTDataModule
-from model.model import LightningMNISTClassifier
+from data_loading.data_loader import LitsDataModule
+from model.model import LitsSegmentator
 from mlf_core.mlf_core import MLFCore
 import os
 from rich import print
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser(description='PyTorch Autolog Mnist Example')
+    parser = ArgumentParser(description='U-Net segmentation for LiTS dataset')
     parser.add_argument(
         '--general-seed',
         type=int,
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         help='log interval of stdout',
     )
     parser = pl.Trainer.add_argparse_args(parent_parser=parser)
-    parser = LightningMNISTClassifier.add_model_specific_args(parent_parser=parser)
+    parser = LitsSegmentator.add_model_specific_args(parent_parser=parser)
 
     mlflow.autolog(1)
     # log conda env and system information
@@ -40,8 +40,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dict_args = vars(args)
     # store seed and number of gpus to make linter bit less restrict in terms of naming
-    general_seed = dict_args['general_seed']
-    pytorch_seed = dict_args['pytorch_seed']
+    general_seed = dict_args['general-seed']
+    pytorch_seed = dict_args['pytorch-seed']
     num_of_gpus = dict_args['gpus']
     MLFCore.set_general_random_seeds(general_seed)
     MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
@@ -53,15 +53,15 @@ if __name__ == "__main__":
             print(f'[bold red]{dict_args["accelerator"]}[bold blue] currently not supported. Switching to [bold green]ddp!')
             dict_args['accelerator'] = 'ddp'
 
-    dm = MNISTDataModule(**dict_args)
+    dm = LitsDataModule(**dict_args)
 
     # TODO MLF-CORE: Enable input data logging
     # MLFCore.log_input_data('data/')
 
     dm.prepare_data()
     dm.setup(stage='fit')
-    model = LightningMNISTClassifier(len_test_set=len(dm.df_test), **dict_args)
-    model.log_every_n_steps = dict_args['log_interval']
+    model = LitsSegmentator(len_test_set=len(dm.df_test), **dict_args)
+    model.log_every_n_steps = dict_args['log-interval']
 
     # check, whether the run is inside a Docker container or not
     if 'MLF_CORE_DOCKER_RUN' in os.environ:
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     trainer.deterministic = True
     trainer.benchmark = False
-    trainer.log_every_n_steps = dict_args['log_interval']
+    trainer.log_every_n_steps = dict_args['log-interval']
     trainer.fit(model, dm)
     trainer.test()
     print(f'\n[bold blue]For tensorboard log, call [bold green]tensorboard --logdir={tensorboard_output_path}')

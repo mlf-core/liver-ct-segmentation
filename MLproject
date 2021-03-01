@@ -1,37 +1,56 @@
-# Author: Lukas Heumos
-# Email: lukas.heumos@posteo.net
+# Author: Luis Kuhn Cuellar
+# Email: luis.kuhn@gmail.com
 # Version: 0.1.0-SNAPSHOT
 # License: MIT
 
 
 name: liver-ct-segmentation
 
-# conda_env: environment.yml
-docker_env:
-  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0-SNAPSHOT
-  volumes: ["${PWD}/data:/data"]
-  environment: [["MLF_CORE_DOCKER_RUN", "TRUE"],["CUBLAS_WORKSPACE_CONFIG", ":4096:8"]]
+conda_env: environment.yml
+
+#docker_env:
+#  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0-SNAPSHOT
+##  volumes: ["${PWD}/data:/data"]
+#  volumes: ["/mnt/datasets/lits/ds:/data"]
+#  environment: [["MLF_CORE_DOCKER_RUN", "TRUE"],["CUBLAS_WORKSPACE_CONFIG", ":4096:8"]]
 
 entry_points:
   main:
     parameters:
-      max_epochs: {type: int, default: 5}
+      max_epochs: {type: int, default: 5000}
       gpus: {type: int, default: 0}
       accelerator: {type str, default: "None"}
-      training-batch-size: {type: int, default: 64}
-      test-batch-size: {type: int, default: 1000}
-      lr: {type: float, default: 0.01}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
       log-interval: {type: int, default: 100}
+      lr: {type: float, default: 0.0001}
+      training-batch-size: {type: int, default: 8}
+      test-batch-size: {type: int, default: 8}
+      class-weights: {type: string, default: '0.2, 1.0, 2.5'}
+      test-percent: {type: float, default: 0.15}
+      test-epochs: {type: int, default: 10}
+#      dataset-path: {type: string, default: '/data/'}
+      dataset-path: {type: string, default: '/vol/datasets/lits/ds/'}
+      dataset-size: {type: int, default: 131}
+      n-channels: {type: int, default: 1}
+      n-class: {type: int, default: 3}
+      dropout-rate: {type: float, default: 0.25}
     command: |
           python liver_ct_segmentation/liver_ct_segmentation.py \
             --max_epochs {max_epochs} \
             --gpus {gpus} \
             --accelerator {accelerator} \
-            --training-batch-size {training-batch-size} \
-            --test-batch-size {test-batch-size} \
-            --lr {lr} \
             --general-seed {general-seed} \
             --pytorch-seed {pytorch-seed} \
-            --log-interval {log-interval}
+            --log-interval {log-interval} \
+            --lr {lr} \
+            --training-batch-size {training-batch-size} \
+            --test-batch-size {test-batch-size} \
+            --class-weights {class-weights} \
+            --test-percent {test-percent} \
+            --test-epochs {test-epochs} \
+            --dataset-path {dataset-path} \
+            --dataset-size {dataset-size} \
+            --n-channels {n-channels} \
+            --n-class {n-class} \
+            --dropout-rate {dropout-rate}
