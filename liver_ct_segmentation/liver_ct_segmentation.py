@@ -70,11 +70,11 @@ if __name__ == "__main__":
     # check, whether the run is inside a Docker container or not
     if 'MLF_CORE_DOCKER_RUN' in os.environ:
         checkpoint_callback = ModelCheckpoint(filepath='/mlflow/tmp/mlruns', save_top_k=1, verbose=True, monitor='train_avg_loss', mode='min', prefix='',)
-        trainer = pl.Trainer.from_argparse_args(args, checkpoint_callback=checkpoint_callback, default_root_dir='/data', logger=TensorBoardLogger('/data'))
+        trainer = pl.Trainer.from_argparse_args(args, checkpoint_callback=checkpoint_callback, default_root_dir='/data', logger=TensorBoardLogger('/data'), check_val_every_n_epoch=dict_args['test_epochs'])
         tensorboard_output_path = f'data/default/version_{trainer.logger.version}'
     else:
         checkpoint_callback = ModelCheckpoint(filepath=os.getcwd(), save_top_k=1, verbose=True, monitor='train_avg_loss', mode='min', prefix='',)
-        trainer = pl.Trainer.from_argparse_args(args, checkpoint_callback=checkpoint_callback)
+        trainer = pl.Trainer.from_argparse_args(args, checkpoint_callback=checkpoint_callback, check_val_every_n_epoch=dict_args['test_epochs'])
         tensorboard_output_path = f'{os.getcwd()}/lightning_logs/version_{trainer.logger.version}'
 
     trainer.deterministic = True

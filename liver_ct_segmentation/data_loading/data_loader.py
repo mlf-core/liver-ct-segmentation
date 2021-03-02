@@ -103,3 +103,10 @@ class LitsDataModule(pl.LightningDataModule):
         :return: output - Test data loader for the given input
         """
         return DataLoader(self.df_test, batch_size=self.args['test_batch_size'], num_workers=self.args['num_workers'], shuffle=False)
+
+    def val_dataloader(self):
+        """
+        :return: output - Val data loader for the given input
+        """
+        return DataLoader(self.df_test, batch_size=self.args['test_batch_size'], num_workers=self.args['num_workers'], shuffle=False)
+
