@@ -100,8 +100,8 @@ class UpSamplingBlock(nn.Module):
         self.up = nn.Sequential(
             nn.Dropout3d(self.dropout_value),
 
-            nn.ConvTranspose3d(in_ch, in_ch, 2, stride=2),
-            #nn.Upsample(scale_factor=2, mode='nearest'),
+            #nn.ConvTranspose3d(in_ch, in_ch, 2, stride=2),
+            nn.Upsample(scale_factor=2, mode='nearest'),
 
             #nn.BatchNorm3d(in_ch),
             #nn.ReLU(inplace=True)
