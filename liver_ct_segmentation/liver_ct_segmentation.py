@@ -65,7 +65,7 @@ if __name__ == "__main__":
     dm.prepare_data()
     dm.setup(stage='fit')
     model = LitsSegmentator(len_test_set=len(dm.df_test), **dict_args)
-    model.log_every_n_steps = dict_args['log-interval']
+    model.log_every_n_steps = dict_args['log_interval']
 
     # check, whether the run is inside a Docker container or not
     if 'MLF_CORE_DOCKER_RUN' in os.environ:
