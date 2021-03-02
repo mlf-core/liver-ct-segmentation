@@ -3,7 +3,7 @@ import pytorch_lightning as pl
 import torch
 from argparse import ArgumentParser
 from torch.nn import functional as F
-from unet_3d_models import UNet3D
+from model.unet_3d_models import UNet3D
 from losses.focal_loss import FocalLoss
 from metrics.metrics import iou_fnc, accuracy
 
