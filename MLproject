@@ -24,8 +24,8 @@ entry_points:
       pytorch-seed: {type: int, default: 0}
       log-interval: {type: int, default: 100}
       lr: {type: float, default: 0.0001}
-      training-batch-size: {type: int, default: 8}
-      test-batch-size: {type: int, default: 8}
+      training-batch-size: {type: int, default: 4}
+      test-batch-size: {type: int, default: 4}
       class-weights: {type: string, default: '0.2, 1.0, 2.5'}
       test-percent: {type: float, default: 0.15}
       test-epochs: {type: int, default: 10}
