@@ -6,6 +6,7 @@ from torch.nn import functional as F
 from model.unet_3d_models import UNet3D
 from losses.focal_loss import FocalLoss
 from metrics.metrics import iou_fnc, accuracy
+import numpy as np
 
 
 class LitsSegmentator(pl.LightningModule):
