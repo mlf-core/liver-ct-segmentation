@@ -57,8 +57,6 @@ if __name__ == "__main__":
             print(f'[bold red]{dict_args["accelerator"]}[bold blue] currently not supported. Switching to [bold green]ddp!')
             dict_args['accelerator'] = 'ddp'
 
-    print("---<<< " + str(dict_args['accelerator']) + " --- " + str(type(dict_args['accelerator'])))
-
     dm = LitsDataModule(**dict_args)
 
     # TODO MLF-CORE: Enable input data logging
