@@ -17,6 +17,7 @@ class LitsSegmentator(pl.LightningModule):
         super(LitsSegmentator, self).__init__()
 
         self.args = kwargs
+        self.args = {key:self.args[key] for key in self.args.keys()}
 
         print(self.args)
         print(type(self.args))
