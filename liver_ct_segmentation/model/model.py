@@ -116,7 +116,8 @@ class LitsSegmentator(pl.LightningModule):
             train_iou_sum[i] = torch.stack([train_output['iou_' + str(i)] for train_output in training_step_outputs]).sum()
             train_iou_cnt_sum[i] = torch.stack([train_output['iou_cnt_' + str(i)] for train_output in training_step_outputs]).sum()
         iou_scores = train_iou_sum / (train_iou_cnt_sum + 1e-10)
-        iou_mean = torch.nanmedian(iou_scores)
+        #iou_mean = torch.nanmedian(iou_scores)
+        iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('train_avg_loss', train_avg_loss, sync_dist=True)
         self.log('train_avg_acc', train_avg_acc, sync_dist=True)
@@ -124,12 +125,12 @@ class LitsSegmentator(pl.LightningModule):
         for c in range(self.args['n_class']):
             if train_iou_cnt_sum[c] == 0.0:
                 iou_scores[c] = 0
-            self.log('train_iou_' + str(c), iou_scores[c], sync_dist=True)
+            self.log('train_iou_' + str(c), iou_scores[c].item(), sync_dist=True)
 
         if self._to_console:
             print('epoch {0:.1f} - loss: {1:.15f} - acc: {2:.15f} - meanIoU: {3:.15f}'.format(self.current_epoch, train_avg_loss, train_avg_acc, iou_mean))
             for c in range(self.args['n_class']):
-                print('class {} IoU: {}'.format(c, iou_scores[c]))
+                print('class {} IoU: {}'.format(c, iou_scores[c].item()))
 
 
     def test_step(self, test_batch, batch_idx):
@@ -195,7 +196,8 @@ class LitsSegmentator(pl.LightningModule):
             test_iou_sum[i] = torch.stack([test_output['test_iou_' + str(i)] for test_output in outputs]).sum()
             test_iou_cnt_sum[i] = torch.stack([test_output['test_iou_cnt_' + str(i)] for test_output in outputs]).sum()
         iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
-        iou_mean = torch.nanmedian(iou_scores)
+        #iou_mean = torch.nanmedian(iou_scores)
+        iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('test_avg_loss', test_avg_loss, sync_dist=True)
         self.log('test_avg_acc', test_avg_acc, sync_dist=True)
@@ -203,13 +205,13 @@ class LitsSegmentator(pl.LightningModule):
         for c in range(self.args['n_class']):
             if test_iou_cnt_sum[c] == 0.0:
                 iou_scores[c] = 0
-            self.log('test_iou_' + str(c), iou_scores[c], sync_dist=True)
+            self.log('test_iou_' + str(c), iou_scores[c].item(), sync_dist=True)
 
         if self._to_console:
             print('eval ' + str(self.current_epoch) + ' ..................................................')
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(test_avg_loss, test_avg_acc, iou_mean))
             for c in range(self.args['n_class']):
-                print('class {} IoU: {}'.format(c, iou_scores[c]))
+                print('class {} IoU: {}'.format(c, iou_scores[c].item()))
 
 
         # avg_test_loss = sum([test_output['test_loss'] for test_output in outputs]) / self.len_test_set
