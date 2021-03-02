@@ -40,7 +40,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dict_args = vars(args)
 
-    #print("--->args:")
+    #print("->args:")
     #print(dict_args)
 
     # store seed and number of gpus to make linter bit less restrict in terms of naming
