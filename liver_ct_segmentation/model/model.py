@@ -241,13 +241,13 @@ class LitsSegmentator(pl.LightningModule):
         #iou_mean = torch.nanmedian(iou_scores)
         iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
-        self.log('val_avg_loss', test_avg_loss, sync_dist=True)
-        self.log('val_avg_acc', test_avg_acc, sync_dist=True)
-        self.log('val_mean_iou', iou_mean, sync_dist=True)
+        self.log('val_avg_loss', test_avg_loss, sync_dist=True, on_epoch=True)
+        self.log('val_avg_acc', test_avg_acc, sync_dist=True, on_epoch=True)
+        self.log('val_mean_iou', iou_mean, sync_dist=True, on_epoch=True)
         for c in range(self.args['n_class']):
             if test_iou_cnt_sum[c] == 0.0:
                 iou_scores[c] = 0
-            self.log('val_iou_' + str(c), iou_scores[c].item(), sync_dist=True)
+            self.log('val_iou_' + str(c), iou_scores[c].item(), sync_dist=True, on_epoch=True)
 
         if self._to_console:
             print('eval ' + str(self.current_epoch) + ' ..................................................')
