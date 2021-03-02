@@ -89,17 +89,17 @@ class LitsDataModule(pl.LightningDataModule):
         Downloads the data, parse it and split the data into train, test, validation data
         :param stage: Stage - training or testing
         """
-        self.df_train = VolumeDataset(self.train_ids, path=self.args['dataset-path'], apply_trans=False)
-        self.df_test = VolumeDataset(self.test_ids, path=self.args['dataset-path'], apply_trans=False)
+        self.df_train = VolumeDataset(self.train_ids, path=self.args['dataset_path'], apply_trans=False)
+        self.df_test = VolumeDataset(self.test_ids, path=self.args['dataset_path'], apply_trans=False)
 
     def train_dataloader(self):
         """
         :return: output - Train data loader for the given input
         """
-        return DataLoader(self.df_train, batch_size=self.args['training-batch-size'], num_workers=self.args['num-workers'], shuffle=True)
+        return DataLoader(self.df_train, batch_size=self.args['training_batch_size'], num_workers=self.args['num_workers'], shuffle=True)
 
     def test_dataloader(self):
         """
         :return: output - Test data loader for the given input
         """
-        return DataLoader(self.df_test, batch_size=self.args['test-batch-size'], num_workers=self.args['num-workers'], shuffle=False)
+        return DataLoader(self.df_test, batch_size=self.args['test_batch_size'], num_workers=self.args['num_workers'], shuffle=False)
