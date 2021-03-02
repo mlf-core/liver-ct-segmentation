@@ -112,8 +112,8 @@ class LitsSegmentator(pl.LightningModule):
         On each training epoch end, log the average training loss
         """
 
-        train_avg_acc = torch.stack([train_output['acc'] for train_output in training_step_outputs]).mean()
-        train_avg_loss = torch.stack([train_output['loss'] for train_output in training_step_outputs]).mean()
+        train_avg_acc = torch.stack([train_output['acc'] for train_output in training_step_outputs]).mean().item()
+        train_avg_loss = torch.stack([train_output['loss'] for train_output in training_step_outputs]).mean().item()
 
         train_iou_sum = torch.zeros(self.args['n_class'])
         train_iou_cnt_sum = torch.zeros(self.args['n_class'])
@@ -192,8 +192,8 @@ class LitsSegmentator(pl.LightningModule):
         :return: output - average test loss
         """
 
-        test_avg_acc = torch.stack([test_output['test_acc'] for test_output in outputs]).mean()
-        test_avg_loss = torch.stack([test_output['test_loss'] for test_output in outputs]).mean()
+        test_avg_acc = torch.stack([test_output['test_acc'] for test_output in outputs]).mean().item()
+        test_avg_loss = torch.stack([test_output['test_loss'] for test_output in outputs]).mean().item()
 
         test_iou_sum = torch.zeros(self.args['n_class'])
         test_iou_cnt_sum = torch.zeros(self.args['n_class'])
