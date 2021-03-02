@@ -10,17 +10,13 @@ import numpy as np
 
 
 class LitsSegmentator(pl.LightningModule):
-    def __init__(self, len_test_set: int, **kwargs):
+    def __init__(self, **kwargs):
         """
         Initializes the network
         """
         super(LitsSegmentator, self).__init__()
 
         self.args = kwargs
-        #self.args = {key:self.args[key] for key in self.args.keys()}
-
-        #print(self.args)
-        #print(type(self.args))
 
         self.optimizer = None
 
@@ -29,13 +25,11 @@ class LitsSegmentator(pl.LightningModule):
         class_weights = np.array([float(i) for i in self.args['class_weights'].split(',')])
         self.criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2)
         
-        #self.len_test_set = len_test_set
-        
         #self.train_acc = pl.metrics.Accuracy()
         #self.test_acc = pl.metrics.Accuracy()
 
         self._to_console = False
-        #self.args = 0
+
 
 
     @staticmethod
@@ -170,19 +164,6 @@ class LitsSegmentator(pl.LightningModule):
 
         return output
 
-        # x, y = test_batch
-        # output = self.forward(x)
-        # _, y_hat = torch.max(output, dim=1)
-        # self.test_acc(y_hat, y)
-        # self.log('test_acc', self.test_acc, on_step=False, on_epoch=True)
-        # # sum up batch loss
-        # data, target = Variable(x), Variable(y)  # noqa: F841
-        # test_loss = F.nll_loss(output, target, reduction='sum').data.item()
-        # # get the index of the max log-probability
-        # pred = output.data.max(1)[1]
-        # correct = pred.eq(target.data).sum()
-        # return #{'test_loss': test_loss, 'correct': correct}
-
     def test_epoch_end(self, outputs):
         """
         Computes average test accuracy score
@@ -218,13 +199,6 @@ class LitsSegmentator(pl.LightningModule):
             for c in range(self.args['n_class']):
                 print('class {} IoU: {}'.format(c, iou_scores[c].item()))
 
-        ###########
-
-
-        # avg_test_loss = sum([test_output['test_loss'] for test_output in outputs]) / self.len_test_set
-        # test_correct = float(sum([test_output['correct'] for test_output in outputs]))
-        # self.log('avg_test_loss', avg_test_loss, sync_dist=True)
-        # self.log('test_correct', test_correct, sync_dist=True)
 
     def prepare_data(self):
         """
