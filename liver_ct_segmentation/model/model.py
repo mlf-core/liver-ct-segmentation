@@ -19,7 +19,7 @@ class LitsSegmentator(pl.LightningModule):
 
         self.optimizer = None
 
-        self.model = UNet3D(self.args['n-channels'], self.args['n-class'], dropout_val=self.args['dropout-rate'])
+        self.model = UNet3D(self.args['n_channels'], self.args['n_class'], dropout_val=self.args['dropout_rate'])
 
         class_weights = np.array([float(i) for i in self.args['class-weights'].split(',')])
         self.criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2)

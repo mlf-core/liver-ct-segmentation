@@ -40,12 +40,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dict_args = vars(args)
 
-    print("--->args:")
-    print(dict_args)
+    #print("--->args:")
+    #print(dict_args)
 
     # store seed and number of gpus to make linter bit less restrict in terms of naming
-    general_seed = dict_args['general-seed']
-    pytorch_seed = dict_args['pytorch-seed']
+    general_seed = dict_args['general_seed']
+    pytorch_seed = dict_args['pytorch_seed']
     num_of_gpus = dict_args['gpus']
     MLFCore.set_general_random_seeds(general_seed)
     MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     trainer.deterministic = True
     trainer.benchmark = False
-    trainer.log_every_n_steps = dict_args['log-interval']
+    trainer.log_every_n_steps = dict_args['log_interval']
     trainer.fit(model, dm)
     trainer.test()
     print(f'\n[bold blue]For tensorboard log, call [bold green]tensorboard --logdir={tensorboard_output_path}')
