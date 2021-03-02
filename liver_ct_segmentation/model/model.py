@@ -17,7 +17,7 @@ class LitsSegmentator(pl.LightningModule):
         super(LitsSegmentator, self).__init__()
 
         self.args = kwargs
-        self.args = {key:self.args[key] for key in self.args.keys()}
+        #self.args = {key:self.args[key] for key in self.args.keys()}
 
         print(self.args)
         print(type(self.args))
@@ -35,7 +35,8 @@ class LitsSegmentator(pl.LightningModule):
         #self.test_acc = pl.metrics.Accuracy()
 
         self._to_console = True
-
+        self.args = 0
+        
 
     @staticmethod
     def add_model_specific_args(parent_parser):
