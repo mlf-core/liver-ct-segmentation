@@ -16,7 +16,10 @@ class LitsSegmentator(pl.LightningModule):
         """
         super(LitsSegmentator, self).__init__()
 
-        #self.args = kwargs
+        self.args = kwargs
+
+        print(self.args)
+        print(type(self.args))
 
         self.optimizer = None
 
