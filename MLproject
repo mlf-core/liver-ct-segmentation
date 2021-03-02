@@ -19,7 +19,7 @@ entry_points:
     parameters:
       max_epochs: {type: int, default: 15}
       gpus: {type: int, default: 2}
-      accelerator: {type str, default: "None"}
+      accelerator: {type: string, default: "None"}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
       log-interval: {type: int, default: 100}
