@@ -96,7 +96,7 @@ class LitsSegmentator(pl.LightningModule):
         #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
 
         acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
-        output['acc'] = acc
+        output['acc'] = torch.tensor(acc)
 
         iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
         for i in range(self.args['n_class']):
@@ -159,7 +159,7 @@ class LitsSegmentator(pl.LightningModule):
         #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
 
         acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
-        output['test_acc'] = acc
+        output['test_acc'] = torch.tensor(acc)
 
         iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
         for i in range(self.args['n_class']):
