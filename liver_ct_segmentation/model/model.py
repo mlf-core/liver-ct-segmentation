@@ -100,8 +100,8 @@ class LitsSegmentator(pl.LightningModule):
 
         iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
         for i in range(self.args['n_class']):
-            output['iou_' + str(i)] = iter_iou[i]
-            output['iou_cnt_' + str(i)] = iter_count[i]
+            output['iou_' + str(i)] = torch.tensor(iter_iou[i])
+            output['iou_cnt_' + str(i)] = torch.tensor(iter_count[i])
 
         output['loss'] = loss
 
@@ -163,8 +163,8 @@ class LitsSegmentator(pl.LightningModule):
 
         iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
         for i in range(self.args['n_class']):
-            output['test_iou_' + str(i)] = iter_iou[i]
-            output['test_iou_cnt_' + str(i)] = iter_count[i]
+            output['test_iou_' + str(i)] = torch.tensor(iter_iou[i])
+            output['test_iou_cnt_' + str(i)] = torch.tensor(iter_count[i])
 
         output['test_loss'] = loss
 
