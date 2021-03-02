@@ -30,8 +30,6 @@ class LitsSegmentator(pl.LightningModule):
 
         self._to_console = False
 
-
-
     @staticmethod
     def add_model_specific_args(parent_parser):
         parser = ArgumentParser(parents=[parent_parser], add_help=False)
@@ -190,72 +188,72 @@ class LitsSegmentator(pl.LightningModule):
             for c in range(self.args['n_class']):
                 print('class {} IoU: {}'.format(c, iou_scores[c].item()))
 
-    # def validation_step(self, test_batch, batch_idx):
-    #     """
-    #     Predicts on the test dataset to compute the current accuracy of the model.
+    def validation_step(self, test_batch, batch_idx):
+        """
+        Predicts on the test dataset to compute the current accuracy of the model.
 
-    #     :param test_batch: Batch data
-    #     :param batch_idx: Batch indices
+        :param test_batch: Batch data
+        :param batch_idx: Batch indices
 
-    #     :return: output - Testing accuracy
-    #     """
+        :return: output - Testing accuracy
+        """
 
-    #     output = {}
+        output = {}
 
-    #     x, y = test_batch
-    #     prob_mask = self.forward(x)
-    #     loss = self.criterion(prob_mask, y.type(torch.long))
+        x, y = test_batch
+        prob_mask = self.forward(x)
+        loss = self.criterion(prob_mask, y.type(torch.long))
 
-    #     #loss = self.cross_entropy_loss(logits, y)
-    #     #self.train_acc(logits, y)
-    #     #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
+        #loss = self.cross_entropy_loss(logits, y)
+        #self.train_acc(logits, y)
+        #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
 
-    #     acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
-    #     output['val_acc'] = torch.tensor(acc)
+        acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
+        output['val_acc'] = torch.tensor(acc)
 
-    #     iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
-    #     for i in range(self.args['n_class']):
-    #         output['val_iou_' + str(i)] = torch.tensor(iter_iou[i])
-    #         output['val_iou_cnt_' + str(i)] = torch.tensor(iter_count[i])
+        iter_iou, iter_count = iou_fnc(torch.argmax(prob_mask, dim=1).float(), y, self.args['n_class'])
+        for i in range(self.args['n_class']):
+            output['val_iou_' + str(i)] = torch.tensor(iter_iou[i])
+            output['val_iou_cnt_' + str(i)] = torch.tensor(iter_count[i])
 
-    #     output['val_loss'] = loss
+        output['val_loss'] = loss
 
-    #     return output
+        return output
 
-    # def validation_epoch_end(self, outputs):
-    #     """
-    #     Computes average test accuracy score
+    def validation_epoch_end(self, outputs):
+        """
+        Computes average test accuracy score
 
-    #     :param outputs: outputs after every epoch end
+        :param outputs: outputs after every epoch end
 
-    #     :return: output - average test loss
-    #     """
+        :return: output - average test loss
+        """
 
-    #     test_avg_acc = torch.stack([test_output['val_acc'] for test_output in outputs]).mean().item()
-    #     test_avg_loss = torch.stack([test_output['val_loss'] for test_output in outputs]).mean().item()
+        test_avg_acc = torch.stack([test_output['val_acc'] for test_output in outputs]).mean().item()
+        test_avg_loss = torch.stack([test_output['val_loss'] for test_output in outputs]).mean().item()
 
-    #     test_iou_sum = torch.zeros(self.args['n_class'])
-    #     test_iou_cnt_sum = torch.zeros(self.args['n_class'])
-    #     for i in range(self.args['n_class']):
-    #         test_iou_sum[i] = torch.stack([test_output['val_iou_' + str(i)] for test_output in outputs]).sum()
-    #         test_iou_cnt_sum[i] = torch.stack([test_output['val_iou_cnt_' + str(i)] for test_output in outputs]).sum()
-    #     iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
-    #     #iou_mean = torch.nanmedian(iou_scores)
-    #     iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
+        test_iou_sum = torch.zeros(self.args['n_class'])
+        test_iou_cnt_sum = torch.zeros(self.args['n_class'])
+        for i in range(self.args['n_class']):
+            test_iou_sum[i] = torch.stack([test_output['val_iou_' + str(i)] for test_output in outputs]).sum()
+            test_iou_cnt_sum[i] = torch.stack([test_output['val_iou_cnt_' + str(i)] for test_output in outputs]).sum()
+        iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
+        #iou_mean = torch.nanmedian(iou_scores)
+        iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
-    #     self.log('val_avg_loss', test_avg_loss, sync_dist=True)
-    #     self.log('val_avg_acc', test_avg_acc, sync_dist=True)
-    #     self.log('val_mean_iou', iou_mean, sync_dist=True)
-    #     for c in range(self.args['n_class']):
-    #         if test_iou_cnt_sum[c] == 0.0:
-    #             iou_scores[c] = 0
-    #         self.log('val_iou_' + str(c), iou_scores[c].item(), sync_dist=True)
+        self.log('val_avg_loss', test_avg_loss, sync_dist=True)
+        self.log('val_avg_acc', test_avg_acc, sync_dist=True)
+        self.log('val_mean_iou', iou_mean, sync_dist=True)
+        for c in range(self.args['n_class']):
+            if test_iou_cnt_sum[c] == 0.0:
+                iou_scores[c] = 0
+            self.log('val_iou_' + str(c), iou_scores[c].item(), sync_dist=True)
 
-    #     if self._to_console:
-    #         print('eval ' + str(self.current_epoch) + ' ..................................................')
-    #         print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(test_avg_loss, test_avg_acc, iou_mean))
-    #         for c in range(self.args['n_class']):
-    #             print('class {} IoU: {}'.format(c, iou_scores[c].item()))
+        if self._to_console:
+            print('eval ' + str(self.current_epoch) + ' ..................................................')
+            print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(test_avg_loss, test_avg_acc, iou_mean))
+            for c in range(self.args['n_class']):
+                print('class {} IoU: {}'.format(c, iou_scores[c].item()))
 
 
     def prepare_data(self):
