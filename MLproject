@@ -17,7 +17,7 @@ conda_env: environment.yml
 entry_points:
   main:
     parameters:
-      max_epochs: {type: int, default: 3000}
+      max_epochs: {type: int, default: 50}
       gpus: {type: int, default: 2}
       accelerator: {type: string, default: "ddp"}
       general-seed: {type: int, default: 0}
