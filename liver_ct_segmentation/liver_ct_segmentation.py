@@ -81,6 +81,8 @@ if __name__ == "__main__":
     trainer.benchmark = False
     trainer.log_every_n_steps = dict_args['log_interval']
     trainer.check_val_every_n_epoch = dict_args['test_epochs']
+
     trainer.fit(model, dm)
     trainer.test()
+    
     print(f'\n[bold blue]For tensorboard log, call [bold green]tensorboard --logdir={tensorboard_output_path}')
