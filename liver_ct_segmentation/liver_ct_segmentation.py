@@ -47,8 +47,9 @@ if __name__ == "__main__":
     general_seed = dict_args['general_seed']
     pytorch_seed = dict_args['pytorch_seed']
     num_of_gpus = dict_args['gpus']
-    MLFCore.set_general_random_seeds(general_seed)
-    MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
+    
+    #MLFCore.set_general_random_seeds(general_seed)
+    #MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
 
     if 'accelerator' in dict_args:
         if dict_args['accelerator'] == 'None':
