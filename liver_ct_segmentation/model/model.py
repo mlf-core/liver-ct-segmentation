@@ -33,7 +33,7 @@ class LitsSegmentator(pl.LightningModule):
     @staticmethod
     def add_model_specific_args(parent_parser):
         parser = ArgumentParser(parents=[parent_parser], add_help=False)
-        parser.add_argument('--num-workers', type=int, default=2, metavar='N', help='number of workers (default: 2)')
+        parser.add_argument('--num_workers', type=int, default=2, metavar='N', help='number of workers (default: 2)')
         parser.add_argument('--lr', type=float, default=0.0001, help='learning rate (default: 0.0001)')
         parser.add_argument('--training-batch-size', type=int, default=8, help='Input batch size for training')
         parser.add_argument('--test-batch-size', type=int, default=8, help='Input batch size for testing')

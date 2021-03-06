@@ -30,6 +30,7 @@ if __name__ == "__main__":
         default=100,
         help='log interval of stdout',
     )
+    
     parser = pl.Trainer.add_argparse_args(parent_parser=parser)
     parser = LitsSegmentator.add_model_specific_args(parent_parser=parser)
 
