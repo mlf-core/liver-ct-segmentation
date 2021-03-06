@@ -34,6 +34,7 @@ entry_points:
       dataset-size: {type: int, default: 131}
       n-channels: {type: int, default: 1}
       n-class: {type: int, default: 3}
+      num_workers: {type: int, default: 24}
       dropout-rate: {type: float, default: 0.25}
     command: |
           python liver_ct_segmentation/liver_ct_segmentation.py \
@@ -53,4 +54,5 @@ entry_points:
             --dataset-size {dataset-size} \
             --n-channels {n-channels} \
             --n-class {n-class} \
+            --num_workers {num_workers} \
             --dropout-rate {dropout-rate}
