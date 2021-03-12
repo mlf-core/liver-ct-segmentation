@@ -30,7 +30,7 @@ if __name__ == "__main__":
         default=100,
         help='log interval of stdout',
     )
-    
+
     parser = pl.Trainer.add_argparse_args(parent_parser=parser)
     parser = LitsSegmentator.add_model_specific_args(parent_parser=parser)
 
@@ -49,8 +49,9 @@ if __name__ == "__main__":
     pytorch_seed = dict_args['pytorch_seed']
     num_of_gpus = dict_args['gpus']
     
-    #MLFCore.set_general_random_seeds(general_seed)
-    #MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
+    # set det.
+    MLFCore.set_general_random_seeds(general_seed)
+    MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
 
     if 'accelerator' in dict_args:
         if dict_args['accelerator'] == 'None':
@@ -79,8 +80,10 @@ if __name__ == "__main__":
         trainer = pl.Trainer.from_argparse_args(args, checkpoint_callback=checkpoint_callback)
         tensorboard_output_path = f'{os.getcwd()}/lightning_logs/version_{trainer.logger.version}'
 
-    trainer.deterministic = True
-    trainer.benchmark = False
+    # set det.
+    #trainer.deterministic = True
+    #trainer.benchmark = False
+
     trainer.log_every_n_steps = dict_args['log_interval']
     trainer.check_val_every_n_epoch = dict_args['test_epochs']
 
