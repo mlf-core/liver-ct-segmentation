@@ -30,7 +30,7 @@ entry_points:
       test-percent: {type: float, default: 0.15}
       test-epochs: {type: int, default: 10}
 #      dataset-path: {type: string, default: '/data/'}
-      dataset-path: {type: string, default: '/vol/volume/lits/ds/'} #'/vol/datasets/lits/ds/'
+      dataset-path: {type: string, default: '/vol/datasets/lits/ds/'} #'/vol/datasets/lits/ds/', '/vol/volume/lits/ds/'
       dataset-size: {type: int, default: 131}
       n-channels: {type: int, default: 1}
       n-class: {type: int, default: 3}
