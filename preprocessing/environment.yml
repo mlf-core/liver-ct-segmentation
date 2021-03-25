@@ -1,0 +1,16 @@
+name: liver_ct_seg_data
+channels:
+  - pytorch
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - ipykernel
+  - nb_conda
+  - jupyter
+  - nibabel=3.2.1
+  - numpy=1.19.2
+  - numpy-base=1.19.2
+  - pytorch=1.4.0
+  - scikit-image=0.17.2
+  - torchvision=0.5.0
