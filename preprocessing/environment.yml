@@ -7,7 +7,7 @@ channels:
 dependencies:
   - ipykernel
   - nb_conda
-  - ipykernel
+  - jupyter
   - nibabel=3.2.1
   - numpy=1.19.2
   - numpy-base=1.19.2

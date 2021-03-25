@@ -13,8 +13,10 @@ Obtain the training data from https://competitions.codalab.org/competitions/1709
 
 # Usage
 
-1. Start the container `docker run -it -p 8888:8888 mlf-core/liver_ct_seq:latest /bin/bash`
+1. Start the container `docker run -it -v /path/to/full_dataset:/home/jovyan/full_dataset -p 8888:8888 mlf-core/liver_ct_seq:latest /bin/bash`
 2. Run bash start.sh
+3. Run the cells inside `liver_ct_seq_dataset.ipynb`
+4. The training data is found inside `unet/ds`
 
 # Tipps
 

@@ -12,5 +12,7 @@ ENV PATH /home/user/miniconda/envs/liver_ct_seg_data/bin:$PATH
 # Dump the details of the installed packages to a file for posterity
 RUN conda env export --name liver_ct_seg_data > liver_ct_seg_data_environment.yml
 
+RUN mkdir -p unet/ds
+
 COPY start.sh .
-Copy liver_ct_seg_dataset.ipynb .
+COPY liver_ct_seg_dataset.ipynb .
