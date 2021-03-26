@@ -111,8 +111,8 @@ class UpSamplingBlock(nn.Module):
 class OutputBlock(nn.Module):
     def __init__(self, in_ch, out_ch):
         super(OutputBlock, self).__init__()
-        self.conv_1= nn.Conv3d(in_ch, out_ch, 1)
-        
+        self.conv_1 = nn.Conv3d(in_ch, out_ch, 1)
+
     def forward(self, x):
         x = self.conv_1(x)
 

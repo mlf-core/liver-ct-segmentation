@@ -10,7 +10,7 @@ class VolumeDataset(Dataset):
         """
         Args:
 
-        assumes the filenames of an image pair (input and label) are img_<ID>.pt and lab_<ID>.pt           
+        assumes the filenames of an image pair (input and label) are img_<ID>.pt and lab_<ID>.pt
         """
         self.inputs = []
         self.labels = []
@@ -46,7 +46,7 @@ class LitsDataModule(pl.LightningDataModule):
         """
         Initialization of the data module with a train and test dataset, as well as a loader for each.
         """
-        
+
         super(LitsDataModule, self).__init__()
         self.df_train = None
         self.df_test = None
