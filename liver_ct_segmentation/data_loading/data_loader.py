@@ -3,26 +3,24 @@ from torch.utils.data import DataLoader, Dataset
 import numpy as np
 import torch
 
+
 class VolumeDataset(Dataset):
 
     def __init__(self, ids, path="ds/", apply_trans=False):
         """
         Args:
 
-        assumes the filenames of an image pair (input and label) are img_<ID>.pt and lab_<ID>.pt
-            
+        assumes the filenames of an image pair (input and label) are img_<ID>.pt and lab_<ID>.pt           
         """
-                        
         self.inputs = []
         self.labels = []
-
         for sample in ids:
             vol = torch.load(path + "img_" + str(sample) + ".pt")
             label = torch.load(path + "lab_" + str(sample) + ".pt")
 
             label = label.astype(np.float32)
 
-            vol = np.expand_dims(vol, axis=0) # add channel dim
+            vol = np.expand_dims(vol, axis=0)  # add channel dim
 
             vol = torch.tensor(vol)
             label = torch.tensor(label)
@@ -62,7 +60,7 @@ class LitsDataModule(pl.LightningDataModule):
                         119, 13, 34, 21, 103, 80, 91, 82, 35, 19, 6, 72, 59, 105, 83, 20, 128, 120, 57, 101, 30, 28, 24, 8, 41,
                         31, 95, 63, 0, 126, 11, 1, 85, 7, 33, 127, 56, 118, 70, 26, 81, 78, 40, 55, 122, 99, 71, 60, 42, 87, 9, 93,
                         108, 39, 18, 77, 90, 68, 32, 102, 79, 12, 96, 112, 36, 65, 123, 66, 10, 107, 98]
-        
+
         self.test_ids = [17, 64, 27, 114, 74, 45, 61, 38, 106, 100, 117, 51, 62]
 
     def setup(self, stage=None):

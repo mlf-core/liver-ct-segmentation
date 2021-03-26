@@ -159,7 +159,7 @@ class LitsSegmentator(pl.LightningModule):
             test_iou_sum[i] = torch.stack([test_output['test_iou_' + str(i)] for test_output in outputs]).sum()
             test_iou_cnt_sum[i] = torch.stack([test_output['test_iou_cnt_' + str(i)] for test_output in outputs]).sum()
         iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
-        
+
         iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('test_avg_loss', test_avg_loss, sync_dist=True, on_step=False, on_epoch=True)

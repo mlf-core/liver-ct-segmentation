@@ -1,15 +1,12 @@
-"""
-Implementation based on: https://github.com/Hsuxu/Loss_ToolBox-PyTorch 
-"""
-
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class FocalLoss(nn.Module):
     """
+    Implementation based on: https://github.com/Hsuxu/Loss_ToolBox-PyTorch
+
     This is a implementation of Focal Loss with smooth label cross entropy supported which is proposed in
     'Focal Loss for Dense Object Detection. (https://arxiv.org/abs/1708.02002)'
         Focal_Loss= -1*alpha*(1-pt)*log(pt)
@@ -47,7 +44,7 @@ class FocalLoss(nn.Module):
             logit = logit.view(-1, logit.size(-1))
         target = torch.squeeze(target, 1)
         target = target.view(-1, 1)
-        
+
         alpha = self.alpha
 
         if alpha is None:
@@ -63,7 +60,7 @@ class FocalLoss(nn.Module):
 
         else:
             raise TypeError('Not support alpha type')
-        
+
         if alpha.device != logit.device:
             alpha = alpha.to(logit.device)
 

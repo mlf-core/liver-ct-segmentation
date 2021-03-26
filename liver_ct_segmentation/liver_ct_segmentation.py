@@ -48,7 +48,7 @@ if __name__ == "__main__":
     general_seed = dict_args['general_seed']
     pytorch_seed = dict_args['pytorch_seed']
     num_of_gpus = dict_args['gpus']
-    
+
     # set det.
     MLFCore.set_general_random_seeds(general_seed)
     MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
@@ -86,5 +86,5 @@ if __name__ == "__main__":
 
     trainer.fit(model, dm)
     trainer.test()
-    
+
     print(f'\n[bold blue]For tensorboard log, call [bold green]tensorboard --logdir={tensorboard_output_path}')

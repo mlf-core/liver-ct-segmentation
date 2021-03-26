@@ -41,7 +41,6 @@ class ConvBlock(nn.Module):
         self.batch_norm_2 = nn.BatchNorm3d(out_ch)
 
     def forward(self, x):
-
         x = self.dropout_1(x)
         x = self.conv_1(x)
         x = self.batch_norm_1(x)
@@ -63,7 +62,6 @@ class InputBlock(nn.Module):
         self.conv_block_1 = ConvBlock(in_ch, out_ch, dropout_val=dropout_val)
 
     def forward(self, x):
-
         x = self.conv_block_1(x)
 
         return x
@@ -75,14 +73,14 @@ class DownSamplingBlock(nn.Module):
         super(DownSamplingBlock, self).__init__()
 
         self.dropout_value = 0.001
-        
+
         self.down = nn.Sequential(
             nn.Dropout3d(self.dropout_value),
             nn.Conv3d(in_ch, in_ch, 2, stride=2),
             ConvBlock(in_ch, out_ch, dropout_val=dropout_val))
 
     def forward(self, x):
-        
+
         x = self.down(x)
         return x
 
@@ -101,25 +99,21 @@ class UpSamplingBlock(nn.Module):
         self.conv = ConvBlock(in_ch + cat_ch, out_ch, dropout_val=dropout_val)
 
     def cat_operation(self, dc, syn):
-        
         return torch.cat((dc, syn), dim=1)
 
     def forward(self, x1, x2):
-        
         x1 = self.up(x1)
         x = self.cat_operation(x1, x2)
         x = self.conv(x)
         return x
 
+
 class OutputBlock(nn.Module):
-    
     def __init__(self, in_ch, out_ch):
         super(OutputBlock, self).__init__()
-
         self.conv_1= nn.Conv3d(in_ch, out_ch, 1)
         
     def forward(self, x):
-
         x = self.conv_1(x)
 
         return x
@@ -130,19 +124,14 @@ class UNet3D(nn.Module):
         super(UNet3D, self).__init__()
 
         self.inc = InputBlock(n_channels, 32, dropout_val=dropout_val)
-        
         self.down1 = DownSamplingBlock(32, 64, dropout_val=dropout_val)
         self.down2 = DownSamplingBlock(64, 128, dropout_val=dropout_val)
-
         self.mid = ConvBlock(128, 128, dropout_val=dropout_val)
-
         self.up1 = UpSamplingBlock(128, 64, 64, dropout_val=dropout_val)
         self.up2 = UpSamplingBlock(64, 32, 32, dropout_val=dropout_val)
-
         self.outc = OutputBlock(32, n_classes)
 
     def forward(self, x):
-
         x1 = self.inc(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)
