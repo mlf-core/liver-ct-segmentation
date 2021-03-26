@@ -41,8 +41,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dict_args = vars(args)
 
-    #print("->args:")
-    #print(dict_args)
+    # print("->args:") # take a look at those args
+    # print(dict_args)
 
     # store seed and number of gpus to make linter bit less restrict in terms of naming
     general_seed = dict_args['general_seed']
@@ -50,8 +50,8 @@ if __name__ == "__main__":
     num_of_gpus = dict_args['gpus']
     
     # set det.
-    #MLFCore.set_general_random_seeds(general_seed)
-    #MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
+    MLFCore.set_general_random_seeds(general_seed)
+    MLFCore.set_pytorch_random_seeds(pytorch_seed, num_of_gpus)
 
     if 'accelerator' in dict_args:
         if dict_args['accelerator'] == 'None':
@@ -61,9 +61,6 @@ if __name__ == "__main__":
             dict_args['accelerator'] = 'ddp'
 
     dm = LitsDataModule(**dict_args)
-
-    # TODO MLF-CORE: Enable input data logging
-    # MLFCore.log_input_data('data/')
 
     dm.prepare_data()
     dm.setup(stage='fit')
@@ -81,8 +78,8 @@ if __name__ == "__main__":
         tensorboard_output_path = f'{os.getcwd()}/lightning_logs/version_{trainer.logger.version}'
 
     # set det.
-    #trainer.deterministic = True
-    #trainer.benchmark = False
+    trainer.deterministic = True
+    trainer.benchmark = False
 
     trainer.log_every_n_steps = dict_args['log_interval']
     trainer.check_val_every_n_epoch = dict_args['test_epochs']

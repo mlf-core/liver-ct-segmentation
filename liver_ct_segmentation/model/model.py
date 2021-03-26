@@ -1,4 +1,3 @@
-from torch.autograd import Variable
 import pytorch_lightning as pl
 import torch
 from argparse import ArgumentParser
@@ -24,9 +23,6 @@ class LitsSegmentator(pl.LightningModule):
 
         class_weights = np.array([float(i) for i in self.args['class_weights'].split(',')])
         self.criterion = FocalLoss(apply_nonlin=None, alpha=class_weights, gamma=2)
-        
-        #self.train_acc = pl.metrics.Accuracy()
-        #self.test_acc = pl.metrics.Accuracy()
 
         self._to_console = False
 
@@ -75,10 +71,6 @@ class LitsSegmentator(pl.LightningModule):
         prob_mask = self.forward(x)
         loss = self.criterion(prob_mask, y.type(torch.long))
 
-        #loss = self.cross_entropy_loss(logits, y)
-        #self.train_acc(logits, y)
-        #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
-
         acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
         output['acc'] = torch.tensor(acc)
 
@@ -89,7 +81,7 @@ class LitsSegmentator(pl.LightningModule):
 
         output['loss'] = loss
 
-        return output #{'loss': loss}
+        return output
 
     def training_epoch_end(self, training_step_outputs):
         """
@@ -105,7 +97,7 @@ class LitsSegmentator(pl.LightningModule):
             train_iou_sum[i] = torch.stack([train_output['iou_' + str(i)] for train_output in training_step_outputs]).sum()
             train_iou_cnt_sum[i] = torch.stack([train_output['iou_cnt_' + str(i)] for train_output in training_step_outputs]).sum()
         iou_scores = train_iou_sum / (train_iou_cnt_sum + 1e-10)
-        #iou_mean = torch.nanmedian(iou_scores)
+
         iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('train_avg_loss', train_avg_loss, sync_dist=True, on_step=False, on_epoch=True)
@@ -123,12 +115,12 @@ class LitsSegmentator(pl.LightningModule):
 
     def test_step(self, test_batch, batch_idx):
         """
-        Predicts on the test dataset to compute the current accuracy of the model.
+        Predicts on the test dataset to compute the current performance of the model.
 
         :param test_batch: Batch data
         :param batch_idx: Batch indices
 
-        :return: output - Testing accuracy
+        :return: output - Testing performance
         """
 
         output = {}
@@ -136,10 +128,6 @@ class LitsSegmentator(pl.LightningModule):
         x, y = test_batch
         prob_mask = self.forward(x)
         loss = self.criterion(prob_mask, y.type(torch.long))
-
-        #loss = self.cross_entropy_loss(logits, y)
-        #self.train_acc(logits, y)
-        #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
 
         acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
         output['test_acc'] = torch.tensor(acc)
@@ -155,7 +143,7 @@ class LitsSegmentator(pl.LightningModule):
 
     def test_epoch_end(self, outputs):
         """
-        Computes average test accuracy score
+        Computes test
 
         :param outputs: outputs after every epoch end
 
@@ -171,7 +159,7 @@ class LitsSegmentator(pl.LightningModule):
             test_iou_sum[i] = torch.stack([test_output['test_iou_' + str(i)] for test_output in outputs]).sum()
             test_iou_cnt_sum[i] = torch.stack([test_output['test_iou_cnt_' + str(i)] for test_output in outputs]).sum()
         iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
-        #iou_mean = torch.nanmedian(iou_scores)
+        
         iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('test_avg_loss', test_avg_loss, sync_dist=True, on_step=False, on_epoch=True)
@@ -190,12 +178,12 @@ class LitsSegmentator(pl.LightningModule):
 
     def validation_step(self, test_batch, batch_idx):
         """
-        Predicts on the test dataset to compute the current accuracy of the model.
+        Predicts on the test dataset to compute the current performance of the model.
 
         :param test_batch: Batch data
         :param batch_idx: Batch indices
 
-        :return: output - Testing accuracy
+        :return: output - Validation performance
         """
 
         output = {}
@@ -203,10 +191,6 @@ class LitsSegmentator(pl.LightningModule):
         x, y = test_batch
         prob_mask = self.forward(x)
         loss = self.criterion(prob_mask, y.type(torch.long))
-
-        #loss = self.cross_entropy_loss(logits, y)
-        #self.train_acc(logits, y)
-        #self.log('train_acc', self.train_acc, on_step=True, on_epoch=True)
 
         acc = accuracy(torch.argmax(prob_mask, dim=1).float(), y)
         output['val_acc'] = torch.tensor(acc)
@@ -222,11 +206,11 @@ class LitsSegmentator(pl.LightningModule):
 
     def validation_epoch_end(self, outputs):
         """
-        Computes average test accuracy score
+        Computes validation
 
         :param outputs: outputs after every epoch end
 
-        :return: output - average test loss
+        :return: output - average validation loss
         """
 
         test_avg_acc = torch.stack([test_output['val_acc'] for test_output in outputs]).mean().item()
@@ -238,7 +222,7 @@ class LitsSegmentator(pl.LightningModule):
             test_iou_sum[i] = torch.stack([test_output['val_iou_' + str(i)] for test_output in outputs]).sum()
             test_iou_cnt_sum[i] = torch.stack([test_output['val_iou_cnt_' + str(i)] for test_output in outputs]).sum()
         iou_scores = test_iou_sum / (test_iou_cnt_sum + 1e-10)
-        #iou_mean = torch.nanmedian(iou_scores)
+
         iou_mean = iou_scores[~torch.isnan(iou_scores)].mean().item()
 
         self.log('val_avg_loss', test_avg_loss, sync_dist=True, on_step=False, on_epoch=True)
@@ -254,7 +238,6 @@ class LitsSegmentator(pl.LightningModule):
             print('eLoss: {0:.15f} - eAcc: {1:.15f} - eMeanIoU: {2:.15f}'.format(test_avg_loss, test_avg_acc, iou_mean))
             for c in range(self.args['n_class']):
                 print('class {} IoU: {}'.format(c, iou_scores[c].item()))
-
 
     def prepare_data(self):
         """
