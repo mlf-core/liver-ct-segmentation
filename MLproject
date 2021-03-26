@@ -17,20 +17,19 @@ conda_env: environment.yml
 entry_points:
   main:
     parameters:
-      max_epochs: {type: int, default: 1201} #1201, 15
+      max_epochs: {type: int, default: 1000}
       gpus: {type: int, default: 2}
       accelerator: {type: string, default: "ddp"}
       general-seed: {type: int, default: 0}
       pytorch-seed: {type: int, default: 0}
-      log-interval: {type: int, default: 3000} #every 100 epochs, dataset size = 120, bs = 4, epochs*(ds/bs)
+      log-interval: {type: int, default: 3000}
       lr: {type: float, default: 0.0001}
-      training-batch-size: {type: int, default: 4}
-      test-batch-size: {type: int, default: 4}
+      training-batch-size: {type: int, default: 1}
+      test-batch-size: {type: int, default: 1}
       class-weights: {type: string, default: '0.2, 1.0, 2.5'}
       test-percent: {type: float, default: 0.15}
       test-epochs: {type: int, default: 10}
-#      dataset-path: {type: string, default: '/data/'}
-      dataset-path: {type: string, default: '/vol/volume/lits/ds/'} #'/vol/datasets/lits/ds/', '/vol/volume/lits/ds/'
+      dataset-path: {type: string, default: '/data/'}
       dataset-size: {type: int, default: 131}
       n-channels: {type: int, default: 1}
       n-class: {type: int, default: 3}
