@@ -6,13 +6,12 @@
 
 name: liver-ct-segmentation
 
-conda_env: environment.yml
+# conda_env: environment.yml
 
-#docker_env:
-#  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0-SNAPSHOT
-##  volumes: ["${PWD}/data:/data"]
-#  volumes: ["/mnt/datasets/lits/ds:/data"]
-#  environment: [["MLF_CORE_DOCKER_RUN", "TRUE"],["CUBLAS_WORKSPACE_CONFIG", ":4096:8"]]
+docker_env:
+  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0-SNAPSHOT
+  volumes: ["${PWD}/data:/data"]
+  environment: [["MLF_CORE_DOCKER_RUN", "TRUE"],["CUBLAS_WORKSPACE_CONFIG", ":4096:8"]]
 
 entry_points:
   main:
