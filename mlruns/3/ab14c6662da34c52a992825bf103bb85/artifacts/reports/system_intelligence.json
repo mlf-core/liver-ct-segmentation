@@ -1,0 +1,100 @@
+{
+  "cpu": {
+    "vendor_id_raw": "GenuineIntel",
+    "hardware_raw": null,
+    "brand_raw": "Intel Core Processor (Broadwell)",
+    "arch": "X86_64",
+    "logical_cores": "24",
+    "physical_cores": "24",
+    "clock": "2593.9119999999984 MHz",
+    "clock_min": "0.0 MHz",
+    "clock_max": "0.0 MHz",
+    "cache": "L1: 32 KiB\nL2: 4 MiB\nL3: 16 MiB"
+  },
+  "gpus": [],
+  "ram": {
+    "total": 135195308032,
+    "banks": {},
+    "cache": {}
+  },
+  "host": {
+    "hostname": "dynamiceinstein-48f14"
+  },
+  "os": "Linux-4.15.0-58-generic-x86_64-with-glibc2.10",
+  "hdd": {
+    "model": {
+      "/dev/vda": {
+        "size": 104857600,
+        "model": ""
+      },
+      "/dev/vdb": {
+        "size": 104857600,
+        "model": ""
+      }
+    },
+    "usage": {
+      "/dev/vda1": {
+        "total": "50.3 GB",
+        "used": "39.46 GB",
+        "free": "8.65 GB",
+        "percentage": "82.0",
+        "fstype": "ext4",
+        "mountpoint": "/"
+      },
+      "/dev/vdb": {
+        "total": "52.58 GB",
+        "used": "1.83 GB",
+        "free": "48.05 GB",
+        "percentage": "3.7",
+        "fstype": "ext4",
+        "mountpoint": "/vol/datasets"
+      }
+    }
+  },
+  "swap": 0,
+  "network": {
+    "ens3": {
+      "isup": "True",
+      "duplex": "NicDuplex.NIC_DUPLEX_UNKNOWN",
+      "speed": "65535",
+      "mtu": "1500"
+    },
+    "lo": {
+      "isup": "True",
+      "duplex": "NicDuplex.NIC_DUPLEX_UNKNOWN",
+      "speed": "0",
+      "mtu": "65536"
+    }
+  },
+  "software": {
+    "gcc": {
+      "path": "/usr/bin/gcc",
+      "version": "gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+    },
+    "g++": {
+      "path": "/usr/bin/g++",
+      "version": "g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+    },
+    "python": {
+      "path": "/home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/bin/python",
+      "version": "Python 3.8.2",
+      "packages": {
+        "pandas": {
+          "version": "1.2.2"
+        }
+      }
+    },
+    "pip": {
+      "path": "/home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/bin/pip",
+      "version": "pip 21.0.1 from /home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/lib/python3.8/site-packages/pip (python 3.8)"
+    },
+    "mkl": {
+      "path": null,
+      "version": "Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications"
+    },
+    "java": {
+      "path": "/usr/bin/java",
+      "version": "openjdk version \"11.0.10\" 2021-01-19"
+    }
+  }
+}

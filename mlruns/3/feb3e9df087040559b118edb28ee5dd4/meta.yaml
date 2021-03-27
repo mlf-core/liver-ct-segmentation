@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/semseg/liver-ct-segmentation/mlruns/1/feb3e9df087040559b118edb28ee5dd4/artifacts
+end_time: 1615411948135
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: feb3e9df087040559b118edb28ee5dd4
+run_uuid: feb3e9df087040559b118edb28ee5dd4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1615370374489
+status: 3
+tags: []
+user_id: ubuntu

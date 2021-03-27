@@ -1,0 +1,75 @@
+   | Name                                 | Type              | Params
+----------------------------------------------------------------------------
+0  | model                                | UNet3D            | 2.3 M 
+1  | model.inc                            | InputBlock        | 28.7 K
+2  | model.inc.conv_block_1               | ConvBlock         | 28.7 K
+3  | model.inc.conv_block_1.dropout_1     | Dropout3d         | 0     
+4  | model.inc.conv_block_1.dropout_2     | Dropout3d         | 0     
+5  | model.inc.conv_block_1.non_linearity | ReLU              | 0     
+6  | model.inc.conv_block_1.conv_1        | Conv3d            | 896   
+7  | model.inc.conv_block_1.batch_norm_1  | BatchNorm3d       | 64    
+8  | model.inc.conv_block_1.conv_2        | Conv3d            | 27.7 K
+9  | model.inc.conv_block_1.batch_norm_2  | BatchNorm3d       | 64    
+10 | model.down1                          | DownSamplingBlock | 174 K 
+11 | model.down1.down                     | Sequential        | 174 K 
+12 | model.down1.down.0                   | Dropout3d         | 0     
+13 | model.down1.down.1                   | Conv3d            | 8.2 K 
+14 | model.down1.down.2                   | ConvBlock         | 166 K 
+15 | model.down1.down.2.dropout_1         | Dropout3d         | 0     
+16 | model.down1.down.2.dropout_2         | Dropout3d         | 0     
+17 | model.down1.down.2.non_linearity     | ReLU              | 0     
+18 | model.down1.down.2.conv_1            | Conv3d            | 55.4 K
+19 | model.down1.down.2.batch_norm_1      | BatchNorm3d       | 128   
+20 | model.down1.down.2.conv_2            | Conv3d            | 110 K 
+21 | model.down1.down.2.batch_norm_2      | BatchNorm3d       | 128   
+22 | model.down2                          | DownSamplingBlock | 697 K 
+23 | model.down2.down                     | Sequential        | 697 K 
+24 | model.down2.down.0                   | Dropout3d         | 0     
+25 | model.down2.down.1                   | Conv3d            | 32.8 K
+26 | model.down2.down.2                   | ConvBlock         | 664 K 
+27 | model.down2.down.2.dropout_1         | Dropout3d         | 0     
+28 | model.down2.down.2.dropout_2         | Dropout3d         | 0     
+29 | model.down2.down.2.non_linearity     | ReLU              | 0     
+30 | model.down2.down.2.conv_1            | Conv3d            | 221 K 
+31 | model.down2.down.2.batch_norm_1      | BatchNorm3d       | 256   
+32 | model.down2.down.2.conv_2            | Conv3d            | 442 K 
+33 | model.down2.down.2.batch_norm_2      | BatchNorm3d       | 256   
+34 | model.mid                            | ConvBlock         | 885 K 
+35 | model.mid.dropout_1                  | Dropout3d         | 0     
+36 | model.mid.dropout_2                  | Dropout3d         | 0     
+37 | model.mid.non_linearity              | ReLU              | 0     
+38 | model.mid.conv_1                     | Conv3d            | 442 K 
+39 | model.mid.batch_norm_1               | BatchNorm3d       | 256   
+40 | model.mid.conv_2                     | Conv3d            | 442 K 
+41 | model.mid.batch_norm_2               | BatchNorm3d       | 256   
+42 | model.up1                            | UpSamplingBlock   | 442 K 
+43 | model.up1.up                         | Sequential        | 0     
+44 | model.up1.up.0                       | Dropout3d         | 0     
+45 | model.up1.up.1                       | Upsample          | 0     
+46 | model.up1.conv                       | ConvBlock         | 442 K 
+47 | model.up1.conv.dropout_1             | Dropout3d         | 0     
+48 | model.up1.conv.dropout_2             | Dropout3d         | 0     
+49 | model.up1.conv.non_linearity         | ReLU              | 0     
+50 | model.up1.conv.conv_1                | Conv3d            | 331 K 
+51 | model.up1.conv.batch_norm_1          | BatchNorm3d       | 128   
+52 | model.up1.conv.conv_2                | Conv3d            | 110 K 
+53 | model.up1.conv.batch_norm_2          | BatchNorm3d       | 128   
+54 | model.up2                            | UpSamplingBlock   | 110 K 
+55 | model.up2.up                         | Sequential        | 0     
+56 | model.up2.up.0                       | Dropout3d         | 0     
+57 | model.up2.up.1                       | Upsample          | 0     
+58 | model.up2.conv                       | ConvBlock         | 110 K 
+59 | model.up2.conv.dropout_1             | Dropout3d         | 0     
+60 | model.up2.conv.dropout_2             | Dropout3d         | 0     
+61 | model.up2.conv.non_linearity         | ReLU              | 0     
+62 | model.up2.conv.conv_1                | Conv3d            | 83.0 K
+63 | model.up2.conv.batch_norm_1          | BatchNorm3d       | 64    
+64 | model.up2.conv.conv_2                | Conv3d            | 27.7 K
+65 | model.up2.conv.batch_norm_2          | BatchNorm3d       | 64    
+66 | model.outc                           | OutputBlock       | 99    
+67 | model.outc.conv_1                    | Conv3d            | 99    
+68 | criterion                            | FocalLoss         | 0     
+----------------------------------------------------------------------------
+2.3 M     Trainable params
+0         Non-trainable params
+2.3 M     Total params

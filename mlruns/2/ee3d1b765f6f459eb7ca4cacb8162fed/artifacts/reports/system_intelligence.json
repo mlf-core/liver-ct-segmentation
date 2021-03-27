@@ -1,0 +1,126 @@
+{
+  "cpu": {
+    "vendor_id_raw": "GenuineIntel",
+    "hardware_raw": null,
+    "brand_raw": "Intel Core Processor (Broadwell)",
+    "arch": "X86_64",
+    "logical_cores": "24",
+    "physical_cores": "24",
+    "clock": "2294.614000000001 MHz",
+    "clock_min": "0.0 MHz",
+    "clock_max": "0.0 MHz",
+    "cache": "L1: 32 KiB\nL2: 4 MiB\nL3: 16 MiB"
+  },
+  "gpus": [
+    {
+      "architecture": "Volta",
+      "brand": "Tesla V100-PCIE-32GB",
+      "compute_capability": "7.0",
+      "memory": "34.09 GB",
+      "memory_clock": "877 kHz",
+      "clock": "1.38 MHz",
+      "multiprocessors": "80",
+      "cores": "5120",
+      "warp_size": "32"
+    },
+    {
+      "architecture": "Volta",
+      "brand": "Tesla V100-PCIE-32GB",
+      "compute_capability": "7.0",
+      "memory": "34.09 GB",
+      "memory_clock": "877 kHz",
+      "clock": "1.38 MHz",
+      "multiprocessors": "80",
+      "cores": "5120",
+      "warp_size": "32"
+    }
+  ],
+  "ram": {
+    "total": 135195316224,
+    "banks": {},
+    "cache": {}
+  },
+  "host": {
+    "hostname": "dynamichertz-020ac"
+  },
+  "os": "Linux-4.15.0-58-generic-x86_64-with-glibc2.10",
+  "hdd": {
+    "model": {
+      "/dev/vda": {
+        "size": 104857600,
+        "model": ""
+      },
+      "/dev/vdb": {
+        "size": 209715200,
+        "model": ""
+      }
+    },
+    "usage": {
+      "/dev/vda1": {
+        "total": "50.3 GB",
+        "used": "42.62 GB",
+        "free": "5.48 GB",
+        "percentage": "88.6",
+        "fstype": "ext4",
+        "mountpoint": "/"
+      },
+      "/dev/vdb": {
+        "total": "105.15 GB",
+        "used": "86.16 GB",
+        "free": "13.61 GB",
+        "percentage": "86.4",
+        "fstype": "ext4",
+        "mountpoint": "/vol/volume"
+      }
+    }
+  },
+  "swap": 0,
+  "network": {
+    "lo": {
+      "isup": "True",
+      "duplex": "NicDuplex.NIC_DUPLEX_UNKNOWN",
+      "speed": "0",
+      "mtu": "65536"
+    },
+    "ens3": {
+      "isup": "True",
+      "duplex": "NicDuplex.NIC_DUPLEX_UNKNOWN",
+      "speed": "65535",
+      "mtu": "1500"
+    }
+  },
+  "software": {
+    "gcc": {
+      "path": "/usr/bin/gcc",
+      "version": "gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+    },
+    "g++": {
+      "path": "/usr/bin/g++",
+      "version": "g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+    },
+    "python": {
+      "path": "/home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/bin/python",
+      "version": "Python 3.8.2",
+      "packages": {
+        "pandas": {
+          "version": "1.2.3"
+        },
+        "pycuda": {
+          "version": "2019.1.2"
+        }
+      }
+    },
+    "pip": {
+      "path": "/home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/bin/pip",
+      "version": "pip 21.0.1 from /home/ubuntu/miniconda3/envs/mlflow-d5501070c111bff3555ea556b6185e68f5ba3284/lib/python3.8/site-packages/pip (python 3.8)"
+    },
+    "mkl": {
+      "path": null,
+      "version": "Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications"
+    },
+    "java": {
+      "path": "/usr/bin/java",
+      "version": "openjdk version \"11.0.10\" 2021-01-19"
+    }
+  }
+}

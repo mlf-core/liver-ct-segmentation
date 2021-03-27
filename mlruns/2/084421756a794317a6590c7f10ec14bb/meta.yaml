@@ -1,0 +1,15 @@
+artifact_uri: file:///home/ubuntu/lkc/liver-ct-segmentation/mlruns/2/084421756a794317a6590c7f10ec14bb/artifacts
+end_time: 1615764427325
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_id: 084421756a794317a6590c7f10ec14bb
+run_uuid: 084421756a794317a6590c7f10ec14bb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1615722212818
+status: 3
+tags: []
+user_id: ubuntu
