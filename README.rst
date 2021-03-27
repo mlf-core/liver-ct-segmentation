@@ -30,6 +30,13 @@ A reproducible, Pytorch-based model for liver-tumor segmentation of computed tom
         :alt: 3D U-Net for LiTS
         :scale: 1
 
+A reproducibility analysis was conducted using three different experimental setups, a standard setup with disregard to reproducible calculations (Random), a setup where random seeds are defined (Seed), and the mlf-core deterministic setup (Deterministic). The LiTS dataset was randomly sampled to define a small test set (10%, 13 tomograms) and models were trained for 1000 epochs with the remainder of the tomograms, using the abovementioned experimental setups (10 training runs per setup). Reproducibility of prediction was tested by evaluating the performance of the models on the test set, using Intersection over Union (IoU) as a metric (Jaccard index).
+
+.. image:: docs/images/iou_boxplots.png
+        :alt: IoU results
+        :scale: 1
+
+
 Architecture
 ------------
 
