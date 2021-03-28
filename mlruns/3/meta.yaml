@@ -1,4 +1,4 @@
-artifact_location: file:///home/ubuntu/semseg/liver-ct-segmentation/mlruns/1
+artifact_location: file:///home/zeth/PycharmProjects/liver-ct-segmentation/mlruns/3
 experiment_id: '1'
 lifecycle_stage: active
 name: deterministic

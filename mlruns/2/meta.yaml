@@ -1,4 +1,4 @@
-artifact_location: file:///home/ubuntu/lkc/liver-ct-segmentation/mlruns/2
+artifact_location: file:///home/zeth/PycharmProjects/liver-ct-segmentation/mlruns/2
 experiment_id: '2'
 lifecycle_stage: active
 name: seeds

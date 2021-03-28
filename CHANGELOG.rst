@@ -10,19 +10,8 @@ This project adheres to `Semantic Versioning <https://semver.org/>`_.
 
 **Added**
 
-**Fixed**
-
-**Dependencies**
-
-**Deprecated**
-
-
-0.1.0 (2021-03-28)
-------------------
-
-**Added**
-
-* Created the project using mlf-core
+* First implementation of U-net for liver cancer segmentation
+* Several runs conducted for the mlf-core paper
 
 **Fixed**
 

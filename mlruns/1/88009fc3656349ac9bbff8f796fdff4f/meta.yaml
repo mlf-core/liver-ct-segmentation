@@ -1,4 +1,4 @@
-artifact_uri: file:///home/ubuntu/lkc/liver-ct-segmentation/mlruns/1/88009fc3656349ac9bbff8f796fdff4f/artifacts
+artifact_uri: file:///home/zeth/PycharmProjects/liver-ct-segmentation/mlruns/1/88009fc3656349ac9bbff8f796fdff4f/artifacts
 end_time: 1615528968779
 entry_point_name: ''
 experiment_id: '1'
