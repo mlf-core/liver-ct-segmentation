@@ -1,0 +1,15 @@
+artifact_uri: file:///home/zeth/PycharmProjects/liver-ct-segmentation/mlruns/1/88009fc3656349ac9bbff8f796fdff4f/artifacts
+end_time: 1615528968779
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 88009fc3656349ac9bbff8f796fdff4f
+run_uuid: 88009fc3656349ac9bbff8f796fdff4f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1615487061220
+status: 3
+tags: []
+user_id: ubuntu

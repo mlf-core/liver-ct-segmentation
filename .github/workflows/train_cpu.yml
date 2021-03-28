@@ -10,6 +10,11 @@ jobs:
         python: [3.7, 3.8]
 
     steps:
+      - name: Reclaim space
+        run: |
+              sudo rm -rf /usr/share/dotnet
+              sudo rm -rf /opt/ghc
+
       - name: Check out source-code repository
         uses: actions/checkout@v2
 
@@ -18,16 +23,16 @@ jobs:
         with:
           dockerfile: Dockerfile
           repository: ghcr.io/mlf-core/liver_ct_segmentation
-          tags: 0.1.0-SNAPSHOT
+          tags: 1.0.0  # <<MLF-CORE_FORCE_BUMP>>
           push: false
 
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version:  ${{ matrix.python }} 
+          python-version:  ${{ matrix.python }}
 
       - name: Install mlflow
         run: pip install mlflow
 
       - name: Train on the CPU
-        run: mlflow run . -P max_epochs=2
+        run: mlflow run . -P max_epochs=2 -P dataset-path=/data/ -P gpus=0 -P accelerator=None
