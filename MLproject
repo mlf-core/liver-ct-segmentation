@@ -1,6 +1,6 @@
 # Author: Luis Kuhn Cuellar
 # Email: luis.kuhn@gmail.com
-# Version: 0.1.0-SNAPSHOT
+# Version: 0.1.0
 # License: MIT
 
 
@@ -9,7 +9,7 @@ name: liver-ct-segmentation
 # conda_env: environment.yml
 
 docker_env:
-  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0-SNAPSHOT
+  image: ghcr.io/mlf-core/liver_ct_segmentation:0.1.0
   volumes: ["${PWD}/data:/data"]
   environment: [["MLF_CORE_DOCKER_RUN", "TRUE"],["CUBLAS_WORKSPACE_CONFIG", ":4096:8"]]
 
