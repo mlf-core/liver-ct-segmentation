@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>liver-ct-segmentation &mdash; liver-ct-segmentation 0.1.0-SNAPSHOT documentation</title>
+  <title>liver-ct-segmentation &mdash; liver-ct-segmentation 1.0.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.0-SNAPSHOT
+                1.0.0
               </div>
             
           
@@ -90,7 +90,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">liver-ct-segmentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
@@ -170,17 +170,19 @@
 <a class="reference external image-reference" href="https://github.com/mlf-core/liver-ct-segmentation/actions?query=workflow%3A%22Publish+Container+to+Docker+Packages%22"><img alt="Publish Container to Docker Packages" src="https://github.com/mlf-core/liver-ct-segmentation/workflows/Publish%20Container%20to%20Docker%20Packages/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/mlf-core/liver-ct-segmentation/actions?query=workflow%3A%22mlf-core+lint%22"><img alt="mlf-core lint" src="https://github.com/mlf-core/liver-ct-segmentation/workflows/mlf-core%20linting/badge.svg" /></a>
 <a class="reference external image-reference" href="https://liver-ct-segmentation.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/liver-ct-segmentation/badge/?version=latest" /></a>
-<p>Segmentation of liver computed tomography images with a UNET.</p>
+<p>Liver-tumor segmentation of computed tomography scans using a U-Net model.</p>
 <ul class="simple">
 <li><p>Free software: MIT</p></li>
 <li><p>Documentation: <a class="reference external" href="https://liver-ct-segmentation.readthedocs.io">https://liver-ct-segmentation.readthedocs.io</a>.</p></li>
 </ul>
-<div class="section" id="features">
-<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Fully reproducible mlf-core Pytorch model</p></li>
-<li><p>MLF-CORE TODO: Write features here</p></li>
-</ul>
+<p>A reproducible, Pytorch-based model for liver-tumor segmentation of computed tomography (CT) scans using a 3D <a class="reference external" href="https://arxiv.org/abs/1606.06650">U-Net</a> architecture. This project uses the Liver Tumor Segmentation Benchmark (<a class="reference external" href="https://arxiv.org/abs/1901.04056">LiTS</a>) dataset to train a simplified U-Net model for semantic segmentation of liver and tumor tissue (background, liver, tumor) from abdominal CT scans.</p>
+<a class="reference internal image-reference" href="docs/images/u_net_lits.png"><img alt="3D U-Net for LiTS" src="docs/images/u_net_lits.png" /></a>
+<p>A reproducibility analysis was conducted using three different experimental setups, a standard setup with disregard to reproducible calculations (Random), a setup where random seeds are defined (Seed), and the mlf-core deterministic setup (Deterministic). The LiTS dataset was randomly sampled to define a small test set (10%, 13 tomograms) and models were trained for 1000 epochs with the remainder of the tomograms, using the abovementioned experimental setups (10 training runs per setup). Reproducibility of prediction was tested by evaluating the performance of the models on the test set, using Intersection over Union (IoU) as a metric (Jaccard index).</p>
+<a class="reference internal image-reference" href="docs/images/iou_boxplots.png"><img alt="IoU results" src="docs/images/iou_boxplots.png" /></a>
+<div class="section" id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<p>A reduced 3D U-Net architecture. The U-Net is a convolutional “encoder-decoder” model for semantic segmentation of 2D and 3D images. In this simplified model, convolutional layers with a stride of 2 are used for down-sampling, while the up-sampling operation was performed with the nearest neighbor algorithm. Here, convolutions use filter sizes of 3x3x3, dropout is applied to every convolutional layer, and the softmax function is used on the last layer to produce class pseudo-probabilities. Blue boxes correspond to 3D multi-channel feature maps, with the number of channels denoted on top, and the size of the spatial dimensions marked in the lower left.</p>
+<a class="reference internal image-reference" href="docs/images/u_net_architecture.png"><img alt="U-Net architecture" src="docs/images/u_net_architecture.png" /></a>
 </div>
 <div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>

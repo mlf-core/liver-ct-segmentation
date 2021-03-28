@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Model &mdash; liver-ct-segmentation 0.1.0-SNAPSHOT documentation</title>
+  <title>Model &mdash; liver-ct-segmentation 1.0.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.0-SNAPSHOT
+                1.0.0
               </div>
             
           
@@ -169,38 +169,27 @@
             
   <div class="section" id="model">
 <h1>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h1>
-<p>TODO MLF-CORE: Write your model documentation here.</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>The trained model classifies images of handwritten digits into the written number.</p>
+<p>The trained model is used for liver-tumor segmentation of computed tomography (CT) scans.</p>
 </div>
 <div class="section" id="training-and-test-data">
 <h2>Training and test data<a class="headerlink" href="#training-and-test-data" title="Permalink to this headline">¶</a></h2>
-<p>The training data origins from the classical machine learning benchmark dataset <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">mnist</a>.
-60000 images are part of the training dataset and a further 10000 can be used for testing.
-For more details visit the <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">mnist website</a>.</p>
+<p>The training data origins from the Liver Tumor Segmentation Benchmark <a class="reference external" href="https://arxiv.org/abs/1901.04056">LiTS</a>.
+131 tomograms are part of the LiTS training dataset, from those 10% were randomly selected as a small test set (13 tomograms).
+The datase is available via <a class="reference external" href="https://competitions.codalab.org/competitions/17094">codalab</a>, or as a <a class="reference external" href="https://academictorrents.com/details/27772adef6f563a1ecc0ae19a528b956e6c803ce">torrent</a>.</p>
 </div>
 <div class="section" id="model-architecture">
 <h2>Model architecture<a class="headerlink" href="#model-architecture" title="Permalink to this headline">¶</a></h2>
-<p>The model is based on <a class="reference external" href="https://pytorch.org/">Pytorch</a> and <a class="reference external" href="https://github.com/PyTorchLightning/pytorch-lightning">Pytorch Lightning</a>.
-On a high level the model can be summarized as follows:
-1. 1x convolutional layer
-2. 1x rectified linear activation function
-3. 1x convolutional layer
-4. 1x rectified linear activation function
-5. 1x 2D max pooling layer
-6. 1x 0.25 dropout layer
-7. 1x flatten layer
-8. 1x fully connected layer
-9. 1x rectified linear activation function
-10. 1x 0.25 dropout layer
-11. 1x fully connected layer
-12. log softmax generating the final output</p>
+<p>The model is based on <a class="reference external" href="https://pytorch.org/">Pytorch</a> and <a class="reference external" href="https://github.com/PyTorchLightning/pytorch-lightning">Pytorch Lightning</a>.</p>
+<p>A reduced <a class="reference external" href="https://arxiv.org/abs/1606.06650">3D U-Net architecture</a>. The U-Net is a convolutional “encoder-decoder” model for semantic segmentation of 2D and 3D images. In this simplified model, convolutional layers with a stride of 2 are used for down-sampling, while the up-sampling operation was performed with the nearest neighbor algorithm. Here, convolutions use filter sizes of 3x3x3, dropout is applied to every convolutional layer, and the softmax function is used on the last layer to produce class pseudo-probabilities. Blue boxes correspond to 3D multi-channel feature maps, with the number of channels denoted on top, and the size of the spatial dimensions marked in the lower left.</p>
+<a class="reference internal image-reference" href="_images/u_net_architecture.png"><img alt="U-Net architecture" src="_images/u_net_architecture.png" style="width: 18.06px; height: 8.52px;" /></a>
 </div>
 <div class="section" id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
-<p>The model was evaluated on 20% (10000 images) of unseen test data. The loss origins from the test data.
-The full training history is viewable by running the mlflow user interface inside the root directory of this project:
+<p>A reproducibility analysis was conducted using three different experimental setups, a standard setup with disregard to reproducible calculations (Random), a setup where random seeds are defined (Seed), and the mlf-core deterministic setup (Deterministic). The LiTS dataset was randomly sampled to define a small test set (10%, 13 tomograms) and models were trained for 1000 epochs with the remainder of the tomograms, using the abovementioned experimental setups (10 training runs per setup). Reproducibility of prediction was tested by evaluating the performance of the models on the test set, using Intersection over Union (IoU) as a metric (Jaccard index).</p>
+<a class="reference internal image-reference" href="_images/iou_boxplots.png"><img alt="IoU results" src="_images/iou_boxplots.png" style="width: 36.0px; height: 24.0px;" /></a>
+<p>The full training history is viewable by running the mlflow user interface inside the root directory of this project:
 <code class="docutils literal notranslate"><span class="pre">mlflow</span> <span class="pre">ui</span></code>.</p>
 </div>
 <div class="section" id="hyperparameter-selection">
@@ -208,6 +197,9 @@ The full training history is viewable by running the mlflow user interface insid
 <p>Hyperparameters were chosen on widely known strong defaults.</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Adam</span> <span class="pre">optimizer</span></code> was chosen for strong, general performance.</p></li>
+<li><p>The learning rate was set to <code class="docutils literal notranslate"><span class="pre">0.0001</span></code></p></li>
+<li><p>The class-weights were set to <code class="docutils literal notranslate"><span class="pre">'0.2,</span> <span class="pre">1.0,</span> <span class="pre">2.5'</span></code> for the background, liver, and tumor respectively.</p></li>
+<li><p>The dropout rate was set to <code class="docutils literal notranslate"><span class="pre">0.25</span></code></p></li>
 </ol>
 </div>
 </div>

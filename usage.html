@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; liver-ct-segmentation 0.1.0-SNAPSHOT documentation</title>
+  <title>Usage &mdash; liver-ct-segmentation 1.0.0 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.0-SNAPSHOT
+                1.0.0
               </div>
             
           
@@ -210,17 +210,25 @@ You can replace <code class="docutils literal notranslate"><span class="pre">all
 <div class="section" id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>gpus                        Number of gpus to train with                             [0:         int]</p></li>
-<li><p>accelerator                 Accelerator connecting to the Lightning Trainer          [‘None’  string]</p></li>
-<li><p>max_epochs:                 Number of epochs to train                                [5:         int]</p></li>
+<li><p>gpus                        Number of gpus to train with                             [2:         int]</p></li>
+<li><p>accelerator                 Accelerator connecting to the Lightning Trainer          [‘ddp’:  string]</p></li>
+<li><p>max_epochs:                 Number of epochs to train                                [1000:         int]</p></li>
 <li><p>general-seed:               Python, Random, Numpy seed                               [0:         int]</p></li>
 <li><p>pytorch-seed:               Pytorch specific seed                                    [0:         int]</p></li>
-<li><p>training-batch-size:        Batch size for training batches                          [64:        int]</p></li>
-<li><p>test-batch-size:            Batch size for test batches                              [1000:      int]</p></li>
-<li><p>lr:                         Learning rate of the optimizer                           [0.01:    float]</p></li>
-<li><p>log-interval:               Number of batches to train for before logging            [100:       int]</p></li>
+<li><p>training-batch-size:        Batch size for training batches                          [1:        int]</p></li>
+<li><p>test-batch-size:            Batch size for test batches                              [1:      int]</p></li>
+<li><p>lr:                         Learning rate of the optimizer                           [0.0001:    float]</p></li>
+<li><p>log-interval:               Number of batches to train for before logging            [3000:       int]</p></li>
+<li><p>class-weights:              Class weights for loss function (separated by commas)    [‘0.2, 1.0, 2.5’:       string]</p></li>
+<li><p>test-percent:               Can be used to separate train and test sets (unused)     [0.15:       float]</p></li>
+<li><p>test-epochs:                    Number of epochs between validations                             [10:       int]</p></li>
+<li><p>dataset-path:               Path to dataset                                                                      [‘/data/’:       string]</p></li>
+<li><p>dataset-size:               Can be used to reduce dataset size (unused)                  [131:       int]</p></li>
+<li><p>n-channels:                 Number of input channels for U-Net                           [1:       int]</p></li>
+<li><p>n-class:                        Number of classes for U-Net                                              [3:       int]</p></li>
+<li><p>num_workers:                Number of workers for data loading                                           [24:       int]</p></li>
+<li><p>dropout-rate:               Dropout rate for U-Net                                                       [0.25:       float]</p></li>
 </ul>
-<p>TODO MLF-CORE: Write your usage and parameter documentation here.</p>
 </div>
 </div>
 </div>
