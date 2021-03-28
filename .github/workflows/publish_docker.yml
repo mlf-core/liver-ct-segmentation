@@ -23,5 +23,5 @@ jobs:
         username: mlf-core
         password: '${{ secrets.MLF_CORE_SYNC_TOKEN}}'
         registry: ghcr.io
-        tags: "latest,0.1.0"
+        tags: "latest,1.0.0"
 

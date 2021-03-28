@@ -15,5 +15,5 @@ email: lukas.heumos@posteo.net
 project_name: liver-ct-segmentation
 project_short_description: Segmentation of liver computed tomography images with a
   UNET.
-version: 0.1.0
+version: 1.0.0
 license: MIT
