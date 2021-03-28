@@ -1,7 +1,7 @@
 artifact_uri: file:///home/zeth/PycharmProjects/liver-ct-segmentation/mlruns/3/ab14c6662da34c52a992825bf103bb85/artifacts
 end_time: 1615528659544
 entry_point_name: ''
-experiment_id: '1'
+experiment_id: '3'
 lifecycle_stage: active
 name: ''
 run_id: ab14c6662da34c52a992825bf103bb85
